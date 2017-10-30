@@ -23,4 +23,15 @@ class LoginTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/');
     }
+
+    public function testLoginAction()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)
+            ->post(route('login'));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/home');
+    }
 }
