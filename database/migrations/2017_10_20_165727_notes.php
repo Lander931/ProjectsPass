@@ -15,9 +15,11 @@ class Notes extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id');
             $table->string('text');
+            $table->integer('user_id');
+            $table->integer('project_id');
             $table->timestamps();
+            $table->index('user_id');
             $table->index('project_id');
         });
     }

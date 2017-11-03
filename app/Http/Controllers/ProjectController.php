@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -14,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return view('project.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('project.create');
     }
 
     /**
@@ -35,7 +36,17 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required'
+        ]);
+        $project = \Auth::user()->projects()->create(
+            [
+                'name' => $request->name,
+                'description' => $request->description,
+            ]
+        );
+        $request->session()->flash('status', 'Добавлен новый проект: ' . $project->name);
+        return redirect()->route('project.show',['project' => $project]);
     }
 
     /**

@@ -15,12 +15,14 @@ class Accesses extends Migration
     {
         Schema::create('accesses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id');
             $table->string('type');
             $table->string('login');
             $table->string('password');
             $table->string('comment');
+            $table->integer('user_id');
+            $table->integer('project_id');
             $table->timestamps();
+            $table->index('user_id');
             $table->index('project_id');
         });
     }
