@@ -57,7 +57,14 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+
+        if (\Auth::user()->can('view', $project)){
+            return view('project.show',['project' => $project]);
+        } else{
+            request()->session()->flash('error','Доступ запрещён!');
+            return back();
+        }
+
     }
 
     /**

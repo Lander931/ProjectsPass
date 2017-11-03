@@ -7,12 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Список проектов</div>
                     <div class="panel-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
+                        @include('errors')
                         <div class="list-group">
                             <a href="{{route('project.create')}}" class="list-group-item list-group-item-success">
                                 <span class="glyphicon glyphicon-plus"></span>
