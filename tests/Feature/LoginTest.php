@@ -32,6 +32,6 @@ class LoginTest extends TestCase
             ->post(route('login'));
 
         $response->assertStatus(302);
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/project');
     }
 }

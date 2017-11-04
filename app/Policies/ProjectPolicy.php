@@ -42,7 +42,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
-        //
+        return $user->id === $project->user_id;
     }
 
     /**
@@ -54,6 +54,6 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project)
     {
-        //
+        return $user->id === $project->user_id;
     }
 }

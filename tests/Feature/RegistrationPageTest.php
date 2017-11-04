@@ -40,7 +40,7 @@ class RegistrationPageTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('project.index'));
 
         $user = User::whereEmail($email)->first();
 

@@ -15,7 +15,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('project.index');
+        $projects = Project::query()->where('user_id',\Auth::user()->id)->get(['id','name']);
+        return view('project.index',['projects' => $projects]);
     }
 
     /**
@@ -75,7 +76,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('project.edit',['project' => $project]);
     }
 
     /**
@@ -87,7 +88,17 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        if (\Auth::user()->can('update',$project)){
+            $this->validate($request,[
+                'name' => 'required'
+            ]);
+            $project->update(['name' => $request->name,'description' => $request->description]);
+            request()->session()->flash('status','Проект обновлён');
+            return redirect()->route('project.show',['project' => $project]);
+        }else{
+            request()->session()->flash('error','Доступ запрещён!');
+            return back();
+        }
     }
 
     /**
@@ -98,6 +109,13 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        if (\Auth::user()->can('delete',$project)){
+            $project->delete();
+            request()->session()->flash('status',"Проект '$project->name' удалён");
+            return redirect()->route('project.index');
+        }else{
+            request()->session()->flash('error','Доступ запрещён!');
+            return back();
+        }
     }
 }

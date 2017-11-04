@@ -13,24 +13,11 @@
 @gray-lighter: lighten(#000, 93.5%); // #eee
 
 */
+.panel-heading .link-back{
+    padding-right: 10px;
+}
 
-#projects-list{
-
-}
-#projects-list .panel-body{
-    padding: 0;
-}
-#projects-list .list-group{
-    margin-bottom: 3px;
-}
-#projects-list .list-group-item:first-child,
-#projects-list .list-group-item:last-child{
-    border-radius: 0;
-}
-#projects-list .list-group-item:last-child{
-    border-bottom: 0;
-}
-#projects-list .list-group-item{
-    border-left: none;
-    border-right: none;
+.panel-heading .link-back:hover,
+.panel-heading .link-back:focus{
+    text-decoration: none;
 }
