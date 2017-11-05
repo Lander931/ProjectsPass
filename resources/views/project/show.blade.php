@@ -15,7 +15,8 @@
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal"
-                                    data-target="#modalDeleteProject"><span class="glyphicon glyphicon-trash"></span></button>
+                                    data-target="#modalDeleteProject"><span class="glyphicon glyphicon-trash"></span>
+                            </button>
                             @include('project.modal-delete',['project' => $project])
                         </div>
                     </div>
@@ -38,7 +39,14 @@
                                 <span class="glyphicon glyphicon-plus"></span> Добавить заметку
                             </a>
                         @endif
-
+                        @if(count($accesses))
+                            @include('access.index')
+                        @else
+                           <a href="{{route('note.create',['project' => $project])}}" class="btn btn-success btn-sm"
+                               style="margin-bottom: 15px">
+                                <span class="glyphicon glyphicon-plus"></span> Добавить доступ
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
