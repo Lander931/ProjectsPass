@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Access whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Access whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Access whereUserId($value)
  */
 class Access extends Model
 {

@@ -17,8 +17,10 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function (){
     Route::resource('project', 'ProjectController');
-    Route::resource('note','NoteController');
-    Route::resource('access','AccessController');
+    Route::group(['prefix' => 'project/{project}'],function (){
+        Route::resource('note','NoteController');
+        Route::resource('access','AccessController');
+    });
 });
 Auth::routes();
 

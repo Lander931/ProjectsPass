@@ -60,7 +60,10 @@ class ProjectController extends Controller
     {
 
         if (\Auth::user()->can('view', $project)){
-            return view('project.show',['project' => $project]);
+            return view('project.show',[
+                'project' => $project,
+                'notes' => $project->notes()->get(),
+            ]);
         } else{
             request()->session()->flash('error','Доступ запрещён!');
             return back();

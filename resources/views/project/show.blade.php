@@ -11,23 +11,34 @@
                         </a>
                         <b>{{$project->name}}</b>
                         <div class="pull-right">
-                            <a href="{{route('project.edit',['project' => $project])}}" class="btn btn-primary btn-xs">
+                            <a href="{{route('project.edit',['project' => $project])}}" class="btn btn-default btn-xs">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
-                            <form style="display: inline;" class="form-horizontal" method="post" action="{{route('project.destroy',['project' => $project])}}">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </form>
+                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal"
+                                    data-target="#modalDeleteProject"><span class="glyphicon glyphicon-trash"></span></button>
+                            @include('project.modal-delete',['project' => $project])
                         </div>
                     </div>
                     <div class="panel-body">
                         @include('alerts')
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <p>{{$project->description}}</p>
+
+                        @if(!is_null($project->description))
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Описание проекта</div>
+                                <div class="panel-body">
+                                    <p>{{$project->description}}</p>
+                                </div>
                             </div>
-                        </div>
+                        @endif
+                        @if(count($notes))
+                            @include('note.index')
+                        @else
+                            <a href="{{route('note.create',['project' => $project])}}" class="btn btn-success btn-sm"
+                               style="margin-bottom: 15px">
+                                <span class="glyphicon glyphicon-plus"></span> Добавить заметку
+                            </a>
+                        @endif
+
                     </div>
                 </div>
             </div>

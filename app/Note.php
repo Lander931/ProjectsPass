@@ -18,8 +18,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Note whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Note whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Note whereUserId($value)
  */
 class Note extends Model
 {
-    //
+    protected $fillable = ['text','user_id','project_id'];
 }
