@@ -113,7 +113,13 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         if (\Auth::user()->can('delete',$project)){
-            $project->delete();
+
+            \DB::transaction(function () use ($project){
+                $project->delete();
+                $project->notes()->delete();
+                $project->accesses()->delete();
+            });
+
             request()->session()->flash('status',"Проект '$project->name' удалён");
             return redirect()->route('project.index');
         }else{
