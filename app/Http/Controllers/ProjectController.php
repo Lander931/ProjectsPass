@@ -63,6 +63,7 @@ class ProjectController extends Controller
             return view('project.show',[
                 'project' => $project,
                 'notes' => $project->notes()->get(),
+                'accesses' => $project->accesses()->get(),
             ]);
         } else{
             request()->session()->flash('error','Доступ запрещён!');
