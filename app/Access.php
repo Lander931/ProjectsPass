@@ -29,5 +29,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Access extends Model
 {
-    //
+    protected $fillable = [
+        'type',
+        'login',
+        'password',
+        'comment',
+        'user_id',
+    ];
 }

@@ -18,7 +18,7 @@ class Accesses extends Migration
             $table->string('type');
             $table->string('login');
             $table->string('password');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->integer('user_id');
             $table->integer('project_id');
             $table->timestamps();

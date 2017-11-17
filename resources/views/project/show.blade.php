@@ -42,7 +42,7 @@
                         @if(count($accesses))
                             @include('access.index')
                         @else
-                           <a href="{{route('note.create',['project' => $project])}}" class="btn btn-success btn-sm"
+                           <a href="{{route('access.create',['project' => $project])}}" class="btn btn-success btn-sm"
                                style="margin-bottom: 15px">
                                 <span class="glyphicon glyphicon-plus"></span> Добавить доступ
                             </a>

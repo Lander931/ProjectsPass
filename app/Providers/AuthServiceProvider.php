@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Access;
 use App\Note;
+use App\Policies\AccessPolicy;
 use App\Policies\NotePolicy;
 use App\Policies\ProjectPolicy;
 use App\Project;
@@ -20,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
         Project::class => ProjectPolicy::class,
         Note::class => NotePolicy::class,
+        Access::class => AccessPolicy::class,
     ];
 
     /**

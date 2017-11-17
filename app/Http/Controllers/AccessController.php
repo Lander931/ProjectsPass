@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Access;
+use App\Project;
 use Illuminate\Http\Request;
 
 class AccessController extends Controller
@@ -20,28 +21,52 @@ class AccessController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param \App\Project $project
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Project $project)
     {
-        //
+        if (\Auth::user()->can('pageCreate', [Access::class, $project])) {
+            return view('access.create', ['project' => $project]);
+        }
+        request()->session()->flash('error','Доступ запрещён!');
+        return back();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param \App\Project $project
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
-        //
+        if (\Auth::user()->can('create',[Access::class,$project])){
+            $this->validate($request,[
+                'type' => "required|max:50",
+                'login' => "required|max:50",
+                'password' => "required",
+                'comment' => "max:255",
+            ]);
+            $project->accesses()->create([
+                'type' => $request->type,
+                'login' => $request->login,
+                'password'=> encrypt($request->password),
+                'comment' => $request->comment,
+                'user_id' => $project->user_id,
+            ]);
+            request()->session()->flash('status','Добавлен доступ');
+            return redirect()->route('project.show',['project' => $project]);
+        }
+        request()->session()->flash('error','Доступ запрещён!');
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Access  $access
+     * @param  \App\Access $access
      * @return \Illuminate\Http\Response
      */
     public function show(Access $access)
@@ -52,7 +77,7 @@ class AccessController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Access  $access
+     * @param  \App\Access $access
      * @return \Illuminate\Http\Response
      */
     public function edit(Access $access)
@@ -63,8 +88,8 @@ class AccessController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Access  $access
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Access $access
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Access $access)
@@ -75,7 +100,7 @@ class AccessController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Access  $access
+     * @param  \App\Access $access
      * @return \Illuminate\Http\Response
      */
     public function destroy(Access $access)
