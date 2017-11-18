@@ -32,7 +32,7 @@
                                 <div class="col-sm-5">
                                     <div class="input-group">
                                         <input type="text" id="password" name="password" class="form-control">
-                                        <div class="input-group-addon"><a href="#" id="generatePass"><span class="glyphicon glyphicon-random"></span></a></div>
+                                        <div class="input-group-btn"><button id="generatePass" type="button" class="btn btn-default"><span class="glyphicon glyphicon-random"></span></button></div>
                                     </div>
                                 </div>
                             </div>
