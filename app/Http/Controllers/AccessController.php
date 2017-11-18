@@ -124,10 +124,17 @@ class AccessController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Access $access
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Access $access)
+    public function destroy(Project $project, Access $access)
     {
-        //
+        if (\Auth::user()->can('delete',[$access,$project])){
+            $access->delete();
+            request()->session()->flash('status','Доступ удалён');
+        } else {
+            request()->session()->flash('error','Доступ запрещён!');
+        }
+        return redirect()->route('project.show',['project' => $project]);
     }
 }

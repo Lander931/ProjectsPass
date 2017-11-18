@@ -45,7 +45,8 @@
                         <span class="glyphicon glyphicon-edit"></span>
                     </a>
                     <button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-                            data-target="#modalDeleteNote"><span class="glyphicon glyphicon-trash"></span></button>
+                            data-target="#modalDeleteAccess{{$access->id}}"><span class="glyphicon glyphicon-trash"></span></button>
+                    @include('access.modal-delete',['project' => $project, 'access' => $access])
                 </td>
             </tr>
         @endforeach
