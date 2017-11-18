@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalDeleteProject" tabindex="-1" role="dialog" aria-labelledby="modalDeleteProject">
+<div class="modal fade" id="modalDeleteProject{{$project->id}}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteProject{{$project->id}}">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-body">

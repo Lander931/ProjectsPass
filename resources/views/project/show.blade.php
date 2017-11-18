@@ -15,7 +15,7 @@
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal"
-                                    data-target="#modalDeleteProject"><span class="glyphicon glyphicon-trash"></span>
+                                    data-target="#modalDeleteProject{{$project->id}}"><span class="glyphicon glyphicon-trash"></span>
                             </button>
                             @include('project.modal-delete',['project' => $project])
                         </div>
