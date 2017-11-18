@@ -78,11 +78,16 @@ class AccessController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Access $access
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Access $access)
+    public function edit(Project $project, Access $access)
     {
-        //
+        if (\Auth::user()->can('pageEdit', [$access, $project])){
+            return view('access.edit', ['project' => $project,'access' => $access]);
+        }
+        request()->session()->flash('error','Доступ запрещён!');
+        return back();
     }
 
     /**
@@ -90,11 +95,29 @@ class AccessController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Access $access
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Access $access)
+    public function update(Request $request, Project $project, Access $access)
     {
-        //
+        if (\Auth::user()->can('update',[$access, $project])){
+            $this->validate($request,[
+                'type' => "required|max:50",
+                'login' => "required|max:50",
+                'password' => "required",
+                'comment' => "max:255",
+            ]);
+            $access->update([
+                'type' => $request->type,
+                'login' => $request->login,
+                'password'=> encrypt($request->password),
+                'comment' => $request->comment,
+            ]);
+            request()->session()->flash('status','Доступ изменён');
+            return redirect()->route('project.show',['project' => $project]);
+        }
+        request()->session()->flash('error','Доступ запрещён!');
+        return back();
     }
 
     /**

@@ -41,7 +41,7 @@
                     </div>
                 </td>
                 <td width="40px">
-                    <a style="margin-bottom: 2px" href="" class="btn btn-default btn-xs">
+                    <a style="margin-bottom: 2px" href="{{route('access.edit', ['access' => $access, 'project' => $project,])}}" class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-edit"></span>
                     </a>
                     <button type="button" class="btn btn-default btn-xs" data-toggle="modal"

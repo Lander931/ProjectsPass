@@ -55,7 +55,7 @@ class AccessPolicy
      * @param  \App\Project $project
      * @return mixed
      */
-    public function pageUpdate(User $user, Access $access, Project $project)
+    public function pageEdit(User $user, Access $access, Project $project)
     {
         return $user->id === $project->user_id && $access->project_id === $project->id;
     }
